@@ -1,4 +1,42 @@
 #include<stdio.h>
+#include<stdlib.h>
+
+typedef struct _node{
+	int number;
+	struct _node *next;
+}Node;
+
+typedef struct _list{
+	Node *head;
+}List;
+void add(List *plist,int num);
+void print(List *plist);
 int main(){
-    printf("helloworld");
+	List list;
+	list.head=NULL; 
+	int num;
+	do{
+		scanf("%d",&num);
+		if(num==-1)break;
+		add(&list,num);
+	}while(num!=-1);
+	print(&list);
+	return 0;
+}
+void add(List *plist,int num){
+		Node *p=(Node*)malloc(sizeof(Node));
+		p->number=num;
+		p->next=NULL;
+		Node *last=plist->head;
+		if(last){
+			while(last->next){
+				last=last->next;
+			}
+			last->next=p;
+		}else plist->head=p;
+}
+void print(List *plist){
+	Node *p=plist->head;
+	for(p;p;p=p->next)printf("%d ",p->number);
+	printf("\n");
 }
